@@ -8,4 +8,16 @@
   <version>1.0.0-SNAPSHOT</version>
   <name>Video rental store application</name>
   <packaging>jar</packaging>
+
+  <properties>
+    <dropwizard.version>1.1.4</dropwizard.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.dropwizard</groupId>
+      <artifactId>dropwizard-core</artifactId>
+      <version>${dropwizard.version}</version>
+    </dependency>
+  </dependencies>
 </project>
