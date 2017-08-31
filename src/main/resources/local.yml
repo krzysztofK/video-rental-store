@@ -5,3 +5,10 @@ server:
 
 logging:
   level: DEBUG
+
+database:
+  driverClass: org.hsqldb.jdbc.JDBCDriver
+  user: sa
+  password: sa
+  url: jdbc:hsqldb:target/videorental
+  validationQuery: "SELECT * FROM INFORMATION_SCHEMA.SYSTEM_TABLES"
