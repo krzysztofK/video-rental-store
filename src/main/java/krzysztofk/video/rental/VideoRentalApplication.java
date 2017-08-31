@@ -6,6 +6,7 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import krzysztofk.video.rental.api.Film;
+import krzysztofk.video.rental.dao.FilmDAO;
 import krzysztofk.video.rental.resources.FilmResource;
 
 public class VideoRentalApplication extends Application<VideoRentalConfiguration> {
@@ -22,7 +23,8 @@ public class VideoRentalApplication extends Application<VideoRentalConfiguration
   }
 
   public void run(VideoRentalConfiguration videoRentalConfiguration, Environment environment) throws Exception {
-    final FilmResource filmResource = new FilmResource();
+    final FilmDAO filmDAO = new FilmDAO(hibernate.getSessionFactory());
+    final FilmResource filmResource = new FilmResource(filmDAO);
     environment.jersey().register(filmResource);
   }
 
