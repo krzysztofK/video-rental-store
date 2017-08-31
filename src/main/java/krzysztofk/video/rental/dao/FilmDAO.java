@@ -13,4 +13,8 @@ public class FilmDAO extends AbstractDAO<Film> {
   public Film add(Film film) {
     return persist(film);
   }
+
+  public Film getById(Integer id) {
+    return get(id);
+  }
 }

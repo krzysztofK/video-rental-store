@@ -16,17 +16,20 @@ public class Film {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private final Integer id;
+  private Integer id;
   @NotNull
-  private final String title;
+  private String title;
   @NotNull
-  private final FilmType type;
+  private FilmType type;
 
   @JsonCreator
   public Film(@JsonProperty("id") Integer id, @JsonProperty("title") String title, @JsonProperty("type") FilmType type) {
     this.id = id;
     this.title = title;
     this.type = type;
+  }
+
+  public Film() {
   }
 
   public Integer getId() {

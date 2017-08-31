@@ -5,8 +5,10 @@ import krzysztofk.video.rental.api.Film;
 import krzysztofk.video.rental.dao.FilmDAO;
 
 import javax.validation.Valid;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,5 +27,12 @@ public class FilmResource {
   @UnitOfWork
   public Response saveFilm(@Valid Film film) {
     return Response.status(Response.Status.CREATED).entity(filmDAO.add(film)).build();
+  }
+
+  @GET
+  @Path("/{id}")
+  @UnitOfWork
+  public Film getFilm(@PathParam("id") Integer id) {
+    return filmDAO.getById(id);
   }
 }
