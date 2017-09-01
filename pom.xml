@@ -52,6 +52,12 @@
       <version>1.4.196</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib-nodep</artifactId>
+      <version>3.2.5</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
