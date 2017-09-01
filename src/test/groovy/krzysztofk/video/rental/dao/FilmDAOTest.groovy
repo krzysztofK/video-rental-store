@@ -27,6 +27,18 @@ class FilmDAOTest extends Specification {
         addedFilm.type == FilmType.OLD_FILM
     }
 
+    def "should find film by id"() {
+        given:
+        def addedFilm = database.inTransaction addFilm(new Film(title: "Some film", type: FilmType.OLD_FILM))
+
+        when:
+        def foundFilm = filmDAO.getById(addedFilm.id)
+
+        then:
+        foundFilm.id == addedFilm.id
+        foundFilm.title == addedFilm.title
+    }
+
     def addFilm(Film film) {
         new Callable<Film>() {
             @Override
