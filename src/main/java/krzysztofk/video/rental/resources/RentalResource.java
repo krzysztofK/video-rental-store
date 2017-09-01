@@ -1,7 +1,6 @@
 package krzysztofk.video.rental.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
-import krzysztofk.video.rental.api.Film;
 import krzysztofk.video.rental.api.Rental;
 
 import javax.validation.Valid;
