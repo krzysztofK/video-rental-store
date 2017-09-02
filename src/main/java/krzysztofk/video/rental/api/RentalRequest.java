@@ -7,9 +7,8 @@ import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-public class Rental {
+public class RentalRequest {
 
-  private final Integer id;
   @NotNull
   private final ZonedDateTime rentalDate;
   @NotNull
@@ -18,18 +17,12 @@ public class Rental {
   private final List<Integer> films;
 
   @JsonCreator
-  public Rental(@JsonProperty("id") Integer id,
-                @JsonProperty("rentalDate") ZonedDateTime rentalDate,
-                @JsonProperty("rentedForDays") int rentedForDays,
-                @JsonProperty("films") List<Integer> films) {
-    this.id = id;
+  public RentalRequest(@JsonProperty("rentalDate") ZonedDateTime rentalDate,
+                       @JsonProperty("rentedForDays") int rentedForDays,
+                       @JsonProperty("films") List<Integer> films) {
     this.rentalDate = rentalDate;
     this.rentedForDays = rentedForDays;
     this.films = films;
-  }
-
-  public Integer getId() {
-    return id;
   }
 
   public ZonedDateTime getRentalDate() {
