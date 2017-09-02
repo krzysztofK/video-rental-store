@@ -20,13 +20,15 @@ class FilmResourceTest extends Specification {
     ResourceTestRule resources = ResourceTestRule.builder().addResource(new FilmResource(filmDAO)).build()
 
     def setupSpec() {
-        filmDAO.add(_) >> { Film film -> new Film(id: 1, title: film.title, type: film.type) }
+        filmDAO.add(_) >> { krzysztofk.video.rental.dao.entitites.Film film ->
+            new krzysztofk.video.rental.dao.entitites.Film(id: 1, title: film.title, type: film.type)
+        }
         filmDAO.getById(100) >> film100()
     }
 
     def "should add film resource"() {
         given:
-        def filmToAdd = new Film(title: "title", type: FilmType.NEW_RELEASE)
+        def filmToAdd = new Film(null, "title", FilmType.NEW_RELEASE)
 
         when:
         def response = resources.target("/films").request().post(Entity.json(filmToAdd))
@@ -52,6 +54,6 @@ class FilmResourceTest extends Specification {
     }
 
     def film100() {
-        new Film(id: 100, title: "film 100", type: FilmType.REGULAR_FILM)
+        new krzysztofk.video.rental.dao.entitites.Film(id: 100, title: "film 100", type: FilmType.REGULAR_FILM)
     }
 }

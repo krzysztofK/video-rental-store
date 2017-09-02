@@ -2,6 +2,7 @@ package krzysztofk.video.rental.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import krzysztofk.video.rental.api.Film;
+import krzysztofk.video.rental.converter.FilmConverter;
 import krzysztofk.video.rental.dao.FilmDAO;
 
 import javax.validation.Valid;
@@ -26,13 +27,13 @@ public class FilmResource {
   @POST
   @UnitOfWork
   public Response saveFilm(@Valid Film film) {
-    return Response.status(Response.Status.CREATED).entity(filmDAO.add(film)).build();
+    return Response.status(Response.Status.CREATED).entity(filmDAO.add(FilmConverter.convert(film))).build();
   }
 
   @GET
   @Path("/{id}")
   @UnitOfWork
   public Film getFilm(@PathParam("id") Integer id) {
-    return filmDAO.getById(id);
+    return FilmConverter.convert(filmDAO.getById(id));
   }
 }

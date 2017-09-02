@@ -1,8 +1,5 @@
 package krzysztofk.video.rental.dao.entitites;
 
-import krzysztofk.video.rental.api.Film;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
