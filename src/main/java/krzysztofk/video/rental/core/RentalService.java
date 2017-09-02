@@ -3,7 +3,6 @@ package krzysztofk.video.rental.core;
 import krzysztofk.video.rental.api.RentalRequest;
 import krzysztofk.video.rental.dao.FilmDAO;
 import krzysztofk.video.rental.dao.RentalDAO;
-import krzysztofk.video.rental.dao.entitites.Rental;
 
 import static java.util.stream.Collectors.toList;
 

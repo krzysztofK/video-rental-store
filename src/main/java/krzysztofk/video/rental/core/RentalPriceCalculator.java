@@ -1,6 +1,5 @@
 package krzysztofk.video.rental.core;
 
-import krzysztofk.video.rental.dao.entitites.Film;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 

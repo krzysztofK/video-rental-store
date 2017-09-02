@@ -1,4 +1,4 @@
-package krzysztofk.video.rental.dao.entitites;
+package krzysztofk.video.rental.core;
 
 import krzysztofk.video.rental.api.FilmType;
 

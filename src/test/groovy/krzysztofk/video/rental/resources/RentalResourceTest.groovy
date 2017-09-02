@@ -1,11 +1,11 @@
 package krzysztofk.video.rental.resources
 
 import io.dropwizard.testing.junit.ResourceTestRule
-import krzysztofk.video.rental.dao.entitites.Film
+import krzysztofk.video.rental.core.Film
 import krzysztofk.video.rental.api.FilmType
 import krzysztofk.video.rental.api.RentalRequest
 import krzysztofk.video.rental.core.RentalService
-import krzysztofk.video.rental.dao.entitites.Rental
+import krzysztofk.video.rental.core.Rental
 import org.junit.ClassRule
 import spock.lang.Shared
 import spock.lang.Specification
