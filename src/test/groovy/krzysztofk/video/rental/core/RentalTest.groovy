@@ -22,9 +22,9 @@ class RentalTest extends Specification {
         pricedRental.id == rental.id
         pricedRental.rentalDate == rental.rentalDate
         pricedRental.films.size() == 2
-        pricedRental.films[0].film == filmRental1.@film
+        pricedRental.films[0].film == filmRental1.film
         pricedRental.films[0].price == price(30)
-        pricedRental.films[1].film == filmRental2.@film
+        pricedRental.films[1].film == filmRental2.film
         pricedRental.films[1].price == price(200)
         pricedRental.totalPrice == price(230)
     }
