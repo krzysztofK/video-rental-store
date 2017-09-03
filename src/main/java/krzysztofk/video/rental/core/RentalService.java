@@ -1,5 +1,6 @@
 package krzysztofk.video.rental.core;
 
+import krzysztofk.video.rental.api.FilmToRent;
 import krzysztofk.video.rental.api.RentalRequest;
 import krzysztofk.video.rental.dao.FilmDAO;
 import krzysztofk.video.rental.dao.RentalDAO;
@@ -23,7 +24,10 @@ public class RentalService {
   private Rental createRental(RentalRequest rentalRequest) {
     return new Rental(null,
         rentalRequest.getRentalDate(),
-        rentalRequest.getRentedForDays(),
-        rentalRequest.getFilms().stream().map(filmDAO::getById).collect(toList()));
+        rentalRequest.getFilms().stream().map(this::createFilmRental).collect(toList()));
+  }
+
+  private FilmRental createFilmRental(FilmToRent filmToRent) {
+    return new FilmRental(filmToRent.getRentedForDays(), filmDAO.getById(filmToRent.getFilmId()));
   }
 }

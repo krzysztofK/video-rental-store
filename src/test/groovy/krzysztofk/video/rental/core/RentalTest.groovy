@@ -11,9 +11,9 @@ class RentalTest extends Specification {
 
     def "should calculate prices"() {
         given:
-        def film1 = new Film(1, "Film 1", FilmType.OLD_FILM)
-        def film2 = new Film(2, "Film 2", FilmType.NEW_RELEASE)
-        def rental = rental(5, film1, film2)
+        def filmRental1 = filmRental(1, FilmType.OLD_FILM, 4)
+        def filmRental2 = filmRental(2, FilmType.NEW_RELEASE, 5)
+        def rental = rental(filmRental1, filmRental2)
 
         when:
         def pricedRental = rental.calculatePrice()
@@ -21,17 +21,20 @@ class RentalTest extends Specification {
         then:
         pricedRental.id == rental.id
         pricedRental.rentalDate == rental.rentalDate
-        pricedRental.rentedForDays == rental.rentedForDays
         pricedRental.films.size() == 2
-        pricedRental.films[0].film == film1
+        pricedRental.films[0].film == filmRental1.@film
         pricedRental.films[0].price == price(30)
-        pricedRental.films[1].film == film2
+        pricedRental.films[1].film == filmRental2.@film
         pricedRental.films[1].price == price(200)
         pricedRental.totalPrice == price(230)
     }
 
-    private static def rental(int rentedForDays, Film... films) {
-        new Rental(1, ZonedDateTime.now(), rentedForDays, films.toList())
+    private static def filmRental(int filmId, FilmType type, int rentedForDays) {
+        new FilmRental(rentedForDays, new Film(filmId, "someTitle", type))
+    }
+
+    private static def rental(FilmRental... films) {
+        new Rental(1, ZonedDateTime.now(), films.toList())
     }
 
     private static def price(BigDecimal amount) {

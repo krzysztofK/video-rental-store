@@ -9,6 +9,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import krzysztofk.video.rental.api.MoneySerialization;
 import krzysztofk.video.rental.core.Film;
+import krzysztofk.video.rental.core.FilmRental;
 import krzysztofk.video.rental.core.Rental;
 import krzysztofk.video.rental.core.RentalService;
 import krzysztofk.video.rental.dao.FilmDAO;
@@ -21,7 +22,7 @@ import static krzysztofk.video.rental.api.MoneySerialization.serializationModule
 
 public class VideoRentalApplication extends Application<VideoRentalConfiguration> {
 
-  private final HibernateBundle<VideoRentalConfiguration> hibernate = new HibernateBundle<VideoRentalConfiguration>(Film.class, Rental.class) {
+  private final HibernateBundle<VideoRentalConfiguration> hibernate = new HibernateBundle<VideoRentalConfiguration>(Film.class, Rental.class, FilmRental.class) {
     @Override
     public PooledDataSourceFactory getDataSourceFactory(VideoRentalConfiguration configuration) {
       return configuration.getDataSourceFactory();
