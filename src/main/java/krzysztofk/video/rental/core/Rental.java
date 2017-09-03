@@ -1,5 +1,6 @@
 package krzysztofk.video.rental.core;
 
+import krzysztofk.video.rental.api.FilmsReturn;
 import org.joda.money.Money;
 
 import javax.persistence.CascadeType;
@@ -52,8 +53,8 @@ public class Rental {
   }
 
   public PricedRental calculatePrice() {
-    List<PricedFilm> filmsPrices = calculateFilmsPrices();
-    return new PricedRental(id, rentalDate, filmsPrices, calculateTotalPrice(filmsPrices));
+    List<PricedFilm> pricedFilms = calculateFilmsPrices();
+    return new PricedRental(id, rentalDate, pricedFilms, calculateTotalPrice(pricedFilms));
   }
 
   private List<PricedFilm> calculateFilmsPrices() {
@@ -62,5 +63,9 @@ public class Rental {
 
   private Money calculateTotalPrice(List<PricedFilm> films) {
     return films.stream().map(PricedFilm::getPrice).reduce(RentalPriceCalculator.zero(), Money::plus);
+  }
+
+  public PricedReturn calculateReturnPrice(FilmsReturn filmsReturn) {
+    return null;
   }
 }

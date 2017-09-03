@@ -6,6 +6,7 @@ import spock.lang.Specification
 
 import static krzysztofk.video.rental.api.FilmType.*
 import static krzysztofk.video.rental.core.RentalPriceCalculator.calculatePrice
+import static krzysztofk.video.rental.core.RentalPriceCalculator.calculateSurcharge
 
 class RentalPriceCalculatorTest extends Specification {
 
@@ -48,6 +49,19 @@ class RentalPriceCalculatorTest extends Specification {
         6             | 60
         7             | 90
         8             | 120
+    }
+
+    def "should calculate surcharge"() {
+        expect:
+        calculateSurcharge(OLD_FILM, rentalForDays, returnAfterDays) == price(expectedSurcharge)
+
+        where:
+        rentalForDays | returnAfterDays || expectedSurcharge
+        1             | 5               || 0
+        1             | 6               || 30
+        3             | 7               || 60
+        5             | 7               || 60
+        5             | 9               || 120
     }
 
     private static def price(BigDecimal amount) {

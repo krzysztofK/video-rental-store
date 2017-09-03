@@ -30,6 +30,11 @@ public class RentalPriceCalculator {
     }
   }
 
+  public static Money calculateSurcharge(FilmType filmType, int rentedForDays, int returnedAfterDays) {
+    return calculatePrice(filmType, returnedAfterDays).minus(calculatePrice(filmType, rentedForDays));
+  }
+
+
   static Money zero() {
     return Money.of(CurrencyUnit.of("SEK"), 0);
   }

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Optional;
 
 @Entity
 @Table(name = "FILM_RENTALS")
@@ -26,15 +27,34 @@ public class FilmRental {
   public FilmRental() {
   }
 
-  public PricedFilm calculatePrice() {
-    return new PricedFilm(film, RentalPriceCalculator.calculatePrice(film.getType(), rentedForDays));
-  }
-
   public int getRentedForDays() {
     return rentedForDays;
   }
 
   public Film getFilm() {
     return film;
+  }
+
+  PricedFilm calculatePrice() {
+    return new PricedFilm(film, RentalPriceCalculator.calculatePrice(film.getType(), rentedForDays));
+  }
+
+  FilmSurcharge calculateSurchargeIfLateReturn(int returnedAfterDays) {
+    if (returnedAfterDays > rentedForDays) {
+      return zeroSurcharge();
+    } else {
+      return calculateSurcharge(returnedAfterDays);
+    }
+  }
+
+  private FilmSurcharge zeroSurcharge() {
+    return new FilmSurcharge(film, 0, RentalPriceCalculator.zero());
+  }
+
+  private FilmSurcharge calculateSurcharge(int returnedAfterDays) {
+    return new FilmSurcharge(
+        film,
+        returnedAfterDays - rentedForDays,
+        RentalPriceCalculator.calculateSurcharge(film.getType(), rentedForDays, returnedAfterDays));
   }
 }

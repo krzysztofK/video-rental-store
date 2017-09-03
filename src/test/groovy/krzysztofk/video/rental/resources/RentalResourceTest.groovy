@@ -3,6 +3,7 @@ package krzysztofk.video.rental.resources
 import io.dropwizard.testing.junit.ResourceTestRule
 import krzysztofk.video.rental.api.FilmToRent
 import krzysztofk.video.rental.api.FilmType
+import krzysztofk.video.rental.api.FilmsReturn
 import krzysztofk.video.rental.api.RentalRequest
 import krzysztofk.video.rental.core.Film
 import krzysztofk.video.rental.core.PricedFilm
@@ -66,5 +67,21 @@ class RentalResourceTest extends Specification {
         responseRental.films*.film.id == [2, 4, 9]
         responseRental.films*.price*.amount == [2.0, 1.0, 3.0]
         responseRental.totalPrice == Money.of(CurrencyUnit.EUR, 6)
+    }
+
+    def "should calculate return"() {
+        given:
+        def filmsReturn = new FilmsReturn(
+                ZonedDateTime.now(),
+                [2, 4])
+
+        when:
+        def response = resources.target("/rentals/1/return").request().post(Entity.json(filmsReturn))
+
+        then:
+        response.status == 200
+        def responseReturn = response.readEntity(FilmsReturn)
+        responseReturn.returnDate.isEqual(filmsReturn.returnDate)
+        responseReturn.films == [2, 4]
     }
 }

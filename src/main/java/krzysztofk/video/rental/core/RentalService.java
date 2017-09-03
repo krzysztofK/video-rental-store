@@ -1,6 +1,7 @@
 package krzysztofk.video.rental.core;
 
 import krzysztofk.video.rental.api.FilmToRent;
+import krzysztofk.video.rental.api.FilmsReturn;
 import krzysztofk.video.rental.api.RentalRequest;
 import krzysztofk.video.rental.dao.FilmDAO;
 import krzysztofk.video.rental.dao.RentalDAO;
@@ -29,5 +30,9 @@ public class RentalService {
 
   private FilmRental createFilmRental(FilmToRent filmToRent) {
     return new FilmRental(filmToRent.getRentedForDays(), filmDAO.getById(filmToRent.getFilmId()));
+  }
+
+  public PricedReturn priceReturn(int rentalId, FilmsReturn filmsReturn) {
+    return rentalDAO.findById(rentalId).calculateReturnPrice(filmsReturn);
   }
 }

@@ -1,12 +1,14 @@
 package krzysztofk.video.rental.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
+import krzysztofk.video.rental.api.FilmsReturn;
 import krzysztofk.video.rental.api.RentalRequest;
 import krzysztofk.video.rental.core.RentalService;
 
 import javax.validation.Valid;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,5 +27,11 @@ public class RentalResource {
   @UnitOfWork
   public Response saveRental(@Valid RentalRequest rentalRequest) {
     return Response.status(Response.Status.CREATED).entity(rentalService.addRental(rentalRequest)).build();
+  }
+
+  @POST
+  @Path("/{id}/return")
+  public FilmsReturn returnFilms(@PathParam("id") Integer rentalId, @Valid FilmsReturn filmsReturn) {
+    return filmsReturn;
   }
 }
