@@ -16,8 +16,8 @@ public class RentalService {
     this.filmDAO = filmDAO;
   }
 
-  public Rental addRental(RentalRequest rentalRequest) {
-    return rentalDAO.add(createRental(rentalRequest));
+  public PricedRental addRental(RentalRequest rentalRequest) {
+    return rentalDAO.add(createRental(rentalRequest)).calculatePrice();
   }
 
   private Rental createRental(RentalRequest rentalRequest) {

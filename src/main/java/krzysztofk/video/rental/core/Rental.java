@@ -1,5 +1,7 @@
 package krzysztofk.video.rental.core;
 
+import org.joda.money.Money;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Entity
 @Table(name = "RENTALS")
@@ -51,5 +56,20 @@ public class Rental {
 
   public List<Film> getFilms() {
     return films;
+  }
+
+  public PricedRental calculatePrice() {
+    List<PricedFilm> filmsPrices = calculateFilmsPrices();
+    return new PricedRental(id, rentalDate, rentedForDays, filmsPrices, calculateTotalPrice(filmsPrices));
+  }
+
+  private List<PricedFilm> calculateFilmsPrices() {
+    return films.stream().map(film ->
+        new PricedFilm(film, RentalPriceCalculator.calculatePrice(film, rentedForDays))
+    ).collect(toList());
+  }
+
+  private Money calculateTotalPrice(List<PricedFilm> films) {
+    return films.stream().map(PricedFilm::getPrice).reduce(RentalPriceCalculator.zero(), Money::plus);
   }
 }

@@ -28,4 +28,8 @@ public class RentalPriceCalculator {
       return BASE_PRICE.plus(BASE_PRICE.multipliedBy(rentalForDays - daysWithConstPrice));
     }
   }
+
+  static Money zero() {
+    return Money.of(CurrencyUnit.of("SEK"), 0);
+  }
 }
