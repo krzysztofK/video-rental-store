@@ -11,7 +11,9 @@ public class FilmSurcharge {
   private final Money surcharge;
 
   @JsonCreator
-  public FilmSurcharge(@JsonProperty("film") Film film, int extraDays, @JsonProperty("surcharge") Money surcharge) {
+  public FilmSurcharge(@JsonProperty("film") Film film,
+                       @JsonProperty("extraDays") int extraDays,
+                       @JsonProperty("surcharge") Money surcharge) {
     this.film = film;
     this.extraDays = extraDays;
     this.surcharge = surcharge;

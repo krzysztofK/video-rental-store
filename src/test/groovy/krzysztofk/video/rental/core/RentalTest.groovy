@@ -1,6 +1,7 @@
 package krzysztofk.video.rental.core
 
 import krzysztofk.video.rental.api.FilmType
+import krzysztofk.video.rental.api.FilmsReturn
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import spock.lang.Specification
@@ -29,15 +30,39 @@ class RentalTest extends Specification {
         pricedRental.totalPrice == price(230)
     }
 
+    def "should calculate return price"() {
+        given:
+        def lateReturnedFilm = filmRental(1, FilmType.OLD_FILM, 5)
+        def onTimeReturnedFilm = filmRental(2, FilmType.NEW_RELEASE, 6)
+        def notReturnedFilm = filmRental(3, FilmType.NEW_RELEASE, 2)
+        def rental = rental(lateReturnedFilm, onTimeReturnedFilm, notReturnedFilm)
+        def returnDate = rentalDate.plusHours(125) // above 5 days
+
+        when:
+        def pricedReturn = rental.calculateReturnPrice(new FilmsReturn(returnDate, [1, 2]))
+
+        then:
+        pricedReturn.surcharges.size() == 2
+        pricedReturn.surcharges[0].film.id == 1
+        pricedReturn.surcharges[0].extraDays == 1
+        pricedReturn.surcharges[0].surcharge == price(30)
+        pricedReturn.surcharges[1].film.id == 2
+        pricedReturn.surcharges[1].extraDays == 0
+        pricedReturn.surcharges[1].surcharge == price(0)
+        pricedReturn.totalLateCharge == price(30)
+    }
+
     private static def filmRental(int filmId, FilmType type, int rentedForDays) {
         new FilmRental(rentedForDays, new Film(filmId, "someTitle", type))
     }
 
     private static def rental(FilmRental... films) {
-        new Rental(1, ZonedDateTime.now(), films.toList())
+        new Rental(1, rentalDate, films.toList())
     }
 
     private static def price(BigDecimal amount) {
         Money.of(CurrencyUnit.of("SEK"), amount)
     }
+
+    private static ZonedDateTime rentalDate = ZonedDateTime.now()
 }

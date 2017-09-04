@@ -41,9 +41,9 @@ public class FilmRental {
 
   FilmSurcharge calculateSurchargeIfLateReturn(int returnedAfterDays) {
     if (returnedAfterDays > rentedForDays) {
-      return zeroSurcharge();
-    } else {
       return calculateSurcharge(returnedAfterDays);
+    } else {
+      return zeroSurcharge();
     }
   }
 

@@ -12,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
+import static krzysztofk.video.rental.core.RentalPriceCalculator.zero;
 
 @Entity
 @Table(name = "RENTALS")
@@ -62,10 +65,37 @@ public class Rental {
   }
 
   private Money calculateTotalPrice(List<PricedFilm> films) {
-    return films.stream().map(PricedFilm::getPrice).reduce(RentalPriceCalculator.zero(), Money::plus);
+    return films.stream().map(PricedFilm::getPrice).reduce(zero(), Money::plus);
   }
 
   public PricedReturn calculateReturnPrice(FilmsReturn filmsReturn) {
-    return null;
+    int returnedAfterDays = (int) Duration.between(rentalDate, filmsReturn.getReturnDate()).toDays() + 1;
+    List<FilmSurcharge> surcharges = calculateSurcharges(filmsReturn.getFilms(), returnedAfterDays);
+    return new PricedReturn(surcharges, calculateTotalLateCharge(surcharges));
+  }
+
+  private List<FilmSurcharge> calculateSurcharges(List<Integer> films, int returnedAfterDays) {
+    return films.stream()
+        .map(this::selectRentalById)
+        .map(filmRental -> filmRental.calculateSurchargeIfLateReturn(returnedAfterDays))
+        .collect(toList());
+  }
+
+  private FilmRental selectRentalById(Integer filmId) {
+    return films.stream()
+        .filter((FilmRental filmRental) -> Objects.equals(filmRental.getFilm().getId(), filmId))
+        .findFirst()
+        .orElseThrow(() -> new NoFilmInRentalException(filmId));
+  }
+
+  private Money calculateTotalLateCharge(List<FilmSurcharge> surcharges) {
+    return surcharges.stream().map(FilmSurcharge::getSurcharge).reduce(zero(), Money::plus);
+  }
+
+  public class NoFilmInRentalException extends RuntimeException {
+
+    NoFilmInRentalException(Integer filmId) {
+      super(String.format("No film with id %d found in rental", filmId));
+    }
   }
 }

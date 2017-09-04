@@ -6,8 +6,10 @@ import krzysztofk.video.rental.api.FilmType
 import krzysztofk.video.rental.api.FilmsReturn
 import krzysztofk.video.rental.api.RentalRequest
 import krzysztofk.video.rental.core.Film
+import krzysztofk.video.rental.core.FilmSurcharge
 import krzysztofk.video.rental.core.PricedFilm
 import krzysztofk.video.rental.core.PricedRental
+import krzysztofk.video.rental.core.PricedReturn
 import krzysztofk.video.rental.core.RentalService
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
@@ -38,22 +40,39 @@ class RentalResourceTest extends Specification {
     @Shared
     def rentalToAdd = new RentalRequest(
             rentalDate,
-            [new FilmToRent(2, 7),
-             new FilmToRent(4, 3),
-             new FilmToRent(9, 5)])
+            [
+                    new FilmToRent(2, 7),
+                    new FilmToRent(4, 3),
+                    new FilmToRent(9, 5)])
 
     @Shared
     def addedRental = new PricedRental(
             1,
             rentalDate,
-            [new PricedFilm(new Film(2, "some title", REGULAR_FILM), Money.of(CurrencyUnit.EUR, 2)),
-             new PricedFilm(new Film(4, "some title", OLD_FILM), Money.of(CurrencyUnit.EUR, 1)),
-             new PricedFilm(new Film(9, "some title", NEW_RELEASE), Money.of(CurrencyUnit.EUR, 3))],
+            [
+                    new PricedFilm(new Film(2, "some title", REGULAR_FILM), Money.of(CurrencyUnit.EUR, 2)),
+                    new PricedFilm(new Film(4, "some title", OLD_FILM), Money.of(CurrencyUnit.EUR, 1)),
+                    new PricedFilm(new Film(9, "some title", NEW_RELEASE), Money.of(CurrencyUnit.EUR, 3))],
             Money.of(CurrencyUnit.EUR, 6))
+
+    @Shared
+    def filmsReturn = new FilmsReturn(
+            ZonedDateTime.now(),
+            [2, 4])
+
+    @Shared
+    def pricedReturn = new PricedReturn(
+            [
+                    new FilmSurcharge(new Film(2, "some title", REGULAR_FILM), 3, Money.of(CurrencyUnit.EUR, 10)),
+                    new FilmSurcharge(new Film(4, "some title", REGULAR_FILM), 1, Money.of(CurrencyUnit.EUR, 5))
+            ],
+            Money.of(CurrencyUnit.EUR, 15)
+    )
 
     def setupSpec() {
         resources.objectMapper.registerModule(serializationModule())
         rentalService.addRental(_) >> addedRental
+        rentalService.priceReturn(1, _) >> pricedReturn
     }
 
     def "should add rental"() {
@@ -70,18 +89,15 @@ class RentalResourceTest extends Specification {
     }
 
     def "should calculate return"() {
-        given:
-        def filmsReturn = new FilmsReturn(
-                ZonedDateTime.now(),
-                [2, 4])
-
         when:
         def response = resources.target("/rentals/1/return").request().post(Entity.json(filmsReturn))
 
         then:
         response.status == 200
-        def responseReturn = response.readEntity(FilmsReturn)
-        responseReturn.returnDate.isEqual(filmsReturn.returnDate)
-        responseReturn.films == [2, 4]
+        def responseReturn = response.readEntity(PricedReturn)
+        responseReturn.surcharges*.film.id == [2, 4]
+        responseReturn.surcharges*.extraDays == [3, 1]
+        responseReturn.surcharges*.surcharge*.amount == [10.0, 5.0]
+        responseReturn.totalLateCharge == Money.of(CurrencyUnit.EUR, 15)
     }
 }
