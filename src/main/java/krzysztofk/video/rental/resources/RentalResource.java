@@ -26,7 +26,7 @@ public class RentalResource {
 
   @POST
   @UnitOfWork
-  public Response saveRental(@Valid RentalRequest rentalRequest) {
+  public Response addRental(@Valid RentalRequest rentalRequest) {
     return Response.status(Response.Status.CREATED).entity(rentalService.addRental(rentalRequest)).build();
   }
 

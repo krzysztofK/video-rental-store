@@ -12,8 +12,10 @@ import krzysztofk.video.rental.core.Film;
 import krzysztofk.video.rental.core.FilmRental;
 import krzysztofk.video.rental.core.Rental;
 import krzysztofk.video.rental.core.RentalService;
+import krzysztofk.video.rental.dao.CustomerDAO;
 import krzysztofk.video.rental.dao.FilmDAO;
 import krzysztofk.video.rental.dao.RentalDAO;
+import krzysztofk.video.rental.resources.CustomerResource;
 import krzysztofk.video.rental.resources.FilmResource;
 import krzysztofk.video.rental.resources.RentalResource;
 
@@ -41,8 +43,11 @@ public class VideoRentalApplication extends Application<VideoRentalConfiguration
     final RentalDAO rentalDAO = new RentalDAO(hibernate.getSessionFactory());
     final RentalService rentalService = new RentalService(rentalDAO, filmDAO);
     final RentalResource rentalResource = new RentalResource(rentalService);
+    final CustomerDAO customerDAO = new CustomerDAO(hibernate.getSessionFactory());
+    final CustomerResource customerResource = new CustomerResource(customerDAO);
     environment.jersey().register(filmResource);
     environment.jersey().register(rentalResource);
+    environment.jersey().register(customerResource);
   }
 
   @Override
