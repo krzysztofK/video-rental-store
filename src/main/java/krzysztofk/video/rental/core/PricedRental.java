@@ -13,16 +13,19 @@ public class PricedRental {
   private final ZonedDateTime rentalDate;
   private final List<PricedFilm> films;
   private final Money totalPrice;
+  private final int totalBonusPoints;
 
   @JsonCreator
   public PricedRental(@JsonProperty("id") Integer id,
                       @JsonProperty("rentalDate") ZonedDateTime rentalDate,
                       @JsonProperty("films") List<PricedFilm> films,
-                      @JsonProperty("totalPrice") Money totalPrice) {
+                      @JsonProperty("totalPrice") Money totalPrice,
+                      @JsonProperty("totalBonusPointa") int totalBonusPoints) {
     this.id = id;
     this.rentalDate = rentalDate;
     this.films = films;
     this.totalPrice = totalPrice;
+    this.totalBonusPoints = totalBonusPoints;
   }
 
   public Integer getId() {
@@ -39,5 +42,9 @@ public class PricedRental {
 
   public Money getTotalPrice() {
     return totalPrice;
+  }
+
+  public int getTotalBonusPoints() {
+    return totalBonusPoints;
   }
 }

@@ -28,6 +28,7 @@ class RentalTest extends Specification {
         pricedRental.films[1].film == filmRental2.film
         pricedRental.films[1].price == price(200)
         pricedRental.totalPrice == price(230)
+        pricedRental.totalBonusPoints == 3
     }
 
     def "should calculate return price"() {

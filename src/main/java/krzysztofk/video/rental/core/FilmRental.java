@@ -6,7 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Optional;
+
+import static krzysztofk.video.rental.core.BonusPointsCalculator.calculateBonusPoints;
 
 @Entity
 @Table(name = "FILM_RENTALS")
@@ -36,7 +37,7 @@ public class FilmRental {
   }
 
   PricedFilm calculatePrice() {
-    return new PricedFilm(film, RentalPriceCalculator.calculatePrice(film.getType(), rentedForDays));
+    return new PricedFilm(film, RentalPriceCalculator.calculatePrice(film.getType(), rentedForDays), calculateBonusPoints(film.getType()));
   }
 
   FilmSurcharge calculateSurchargeIfLateReturn(int returnedAfterDays) {

@@ -2,7 +2,6 @@ package krzysztofk.video.rental.resources
 
 import io.dropwizard.testing.junit.ResourceTestRule
 import krzysztofk.video.rental.api.FilmToRent
-import krzysztofk.video.rental.api.FilmType
 import krzysztofk.video.rental.api.FilmsReturn
 import krzysztofk.video.rental.api.RentalRequest
 import krzysztofk.video.rental.core.Film
@@ -50,10 +49,11 @@ class RentalResourceTest extends Specification {
             1,
             rentalDate,
             [
-                    new PricedFilm(new Film(2, "some title", REGULAR_FILM), Money.of(CurrencyUnit.EUR, 2)),
-                    new PricedFilm(new Film(4, "some title", OLD_FILM), Money.of(CurrencyUnit.EUR, 1)),
-                    new PricedFilm(new Film(9, "some title", NEW_RELEASE), Money.of(CurrencyUnit.EUR, 3))],
-            Money.of(CurrencyUnit.EUR, 6))
+                    new PricedFilm(new Film(2, "some title", REGULAR_FILM), Money.of(CurrencyUnit.EUR, 2), 1),
+                    new PricedFilm(new Film(4, "some title", OLD_FILM), Money.of(CurrencyUnit.EUR, 1), 1),
+                    new PricedFilm(new Film(9, "some title", NEW_RELEASE), Money.of(CurrencyUnit.EUR, 3), 2)],
+            Money.of(CurrencyUnit.EUR, 6),
+            4)
 
     @Shared
     def filmsReturn = new FilmsReturn(
@@ -86,6 +86,7 @@ class RentalResourceTest extends Specification {
         responseRental.films*.film.id == [2, 4, 9]
         responseRental.films*.price*.amount == [2.0, 1.0, 3.0]
         responseRental.totalPrice == Money.of(CurrencyUnit.EUR, 6)
+        responseRental.totalBonusPoints == 4
     }
 
     def "should calculate return"() {

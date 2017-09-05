@@ -8,11 +8,15 @@ public class PricedFilm {
 
   private final Film film;
   private final Money price;
+  private final int bonusPoints;
 
   @JsonCreator
-  public PricedFilm(@JsonProperty("film") Film film, @JsonProperty("price") Money price) {
+  public PricedFilm(@JsonProperty("film") Film film,
+                    @JsonProperty("price") Money price,
+                    @JsonProperty("bonusPoints") int bonusPoints) {
     this.film = film;
     this.price = price;
+    this.bonusPoints = bonusPoints;
   }
 
   public Film getFilm() {
@@ -21,5 +25,9 @@ public class PricedFilm {
 
   public Money getPrice() {
     return price;
+  }
+
+  public int getBonusPoints() {
+    return bonusPoints;
   }
 }

@@ -57,7 +57,7 @@ public class Rental {
 
   public PricedRental calculatePrice() {
     List<PricedFilm> pricedFilms = calculateFilmsPrices();
-    return new PricedRental(id, rentalDate, pricedFilms, calculateTotalPrice(pricedFilms));
+    return new PricedRental(id, rentalDate, pricedFilms, calculateTotalPrice(pricedFilms), calculateTotalBonusPoints(pricedFilms));
   }
 
   private List<PricedFilm> calculateFilmsPrices() {
@@ -66,6 +66,10 @@ public class Rental {
 
   private Money calculateTotalPrice(List<PricedFilm> films) {
     return films.stream().map(PricedFilm::getPrice).reduce(zero(), Money::plus);
+  }
+
+  private int calculateTotalBonusPoints(List<PricedFilm> films) {
+    return films.stream().mapToInt(PricedFilm::getBonusPoints).sum();
   }
 
   public PricedReturn calculateReturnPrice(FilmsReturn filmsReturn) {
