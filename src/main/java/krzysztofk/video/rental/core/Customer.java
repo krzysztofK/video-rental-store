@@ -41,4 +41,8 @@ public class Customer {
   public int getBonusPoints() {
     return bonusPoints;
   }
+
+  public void addBonusPoints(int bonusPoints) {
+    this.bonusPoints = this.bonusPoints + bonusPoints;
+  }
 }

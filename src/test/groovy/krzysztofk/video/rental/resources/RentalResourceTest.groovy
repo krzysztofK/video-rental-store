@@ -42,7 +42,8 @@ class RentalResourceTest extends Specification {
             [
                     new FilmToRent(2, 7),
                     new FilmToRent(4, 3),
-                    new FilmToRent(9, 5)])
+                    new FilmToRent(9, 5)],
+            100)
 
     @Shared
     def addedRental = new PricedRental(

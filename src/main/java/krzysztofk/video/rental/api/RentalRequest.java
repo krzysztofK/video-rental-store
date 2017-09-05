@@ -13,12 +13,16 @@ public class RentalRequest {
   private final ZonedDateTime rentalDate;
   @NotNull
   private final List<FilmToRent> films;
+  @NotNull
+  private final int customerId;
 
   @JsonCreator
   public RentalRequest(@JsonProperty("rentalDate") ZonedDateTime rentalDate,
-                       @JsonProperty("films") List<FilmToRent> films) {
+                       @JsonProperty("films") List<FilmToRent> films,
+                       @JsonProperty("customerId") int customerId) {
     this.rentalDate = rentalDate;
     this.films = films;
+    this.customerId = customerId;
   }
 
   public ZonedDateTime getRentalDate() {
@@ -27,5 +31,9 @@ public class RentalRequest {
 
   public List<FilmToRent> getFilms() {
     return films;
+  }
+
+  public int getCustomerId() {
+    return customerId;
   }
 }

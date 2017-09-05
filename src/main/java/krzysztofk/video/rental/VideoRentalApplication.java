@@ -40,14 +40,14 @@ public class VideoRentalApplication extends Application<VideoRentalConfiguration
     environment.getObjectMapper().registerModule(module);
     final FilmDAO filmDAO = new FilmDAO(hibernate.getSessionFactory());
     final FilmResource filmResource = new FilmResource(filmDAO);
-    final RentalDAO rentalDAO = new RentalDAO(hibernate.getSessionFactory());
-    final RentalService rentalService = new RentalService(rentalDAO, filmDAO);
-    final RentalResource rentalResource = new RentalResource(rentalService);
     final CustomerDAO customerDAO = new CustomerDAO(hibernate.getSessionFactory());
     final CustomerResource customerResource = new CustomerResource(customerDAO);
+    final RentalDAO rentalDAO = new RentalDAO(hibernate.getSessionFactory());
+    final RentalService rentalService = new RentalService(rentalDAO, filmDAO, customerDAO);
+    final RentalResource rentalResource = new RentalResource(rentalService);
     environment.jersey().register(filmResource);
-    environment.jersey().register(rentalResource);
     environment.jersey().register(customerResource);
+    environment.jersey().register(rentalResource);
   }
 
   @Override
