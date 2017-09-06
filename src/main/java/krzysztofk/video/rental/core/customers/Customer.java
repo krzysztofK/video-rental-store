@@ -1,4 +1,4 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.core.customers;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

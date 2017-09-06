@@ -1,8 +1,8 @@
-package krzysztofk.video.rental.api;
+package krzysztofk.video.rental.api.rentals;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import krzysztofk.video.rental.api.PricedFilm;
+import krzysztofk.video.rental.api.rentals.PricedFilm;
 import org.joda.money.Money;
 
 import java.time.ZonedDateTime;

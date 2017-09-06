@@ -1,7 +1,7 @@
 package krzysztofk.video.rental.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
-import krzysztofk.video.rental.api.Customer;
+import krzysztofk.video.rental.api.customers.Customer;
 import krzysztofk.video.rental.dao.CustomerDAO;
 
 import javax.validation.Valid;

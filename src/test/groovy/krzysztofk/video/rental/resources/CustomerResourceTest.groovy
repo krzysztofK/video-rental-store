@@ -1,7 +1,7 @@
 package krzysztofk.video.rental.resources
 
 import io.dropwizard.testing.junit.ResourceTestRule
-import krzysztofk.video.rental.api.Customer
+import krzysztofk.video.rental.api.customers.Customer
 import krzysztofk.video.rental.dao.CustomerDAO
 import org.junit.ClassRule
 import spock.lang.Shared
@@ -19,8 +19,8 @@ class CustomerResourceTest extends Specification {
     ResourceTestRule resources = ResourceTestRule.builder().addResource(new CustomerResource(customerDAO)).build()
 
     def setupSpec() {
-        customerDAO.add(_) >> { krzysztofk.video.rental.core.Customer customer ->
-            new krzysztofk.video.rental.core.Customer(id: 1, name: customer.name, surname: customer.surname, bonusPoints: customer.bonusPoints)
+        customerDAO.add(_) >> { krzysztofk.video.rental.core.customers.Customer customer ->
+            new krzysztofk.video.rental.core.customers.Customer(id: 1, name: customer.name, surname: customer.surname, bonusPoints: customer.bonusPoints)
         }
         customerDAO.getById(100) >> customer100
     }
@@ -56,7 +56,7 @@ class CustomerResourceTest extends Specification {
     }
 
     private static def customer100 =
-            new krzysztofk.video.rental.core.Customer(
+            new krzysztofk.video.rental.core.customers.Customer(
                     id: 100,
                     name: "Some Name",
                     surname: "Some Surname",

@@ -1,7 +1,7 @@
 package krzysztofk.video.rental.dao
 
 import io.dropwizard.testing.junit.DAOTestRule
-import krzysztofk.video.rental.core.Customer
+import krzysztofk.video.rental.core.customers.Customer
 import org.junit.Rule
 import spock.lang.Specification
 

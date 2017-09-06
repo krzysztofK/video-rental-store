@@ -1,11 +1,11 @@
-package krzysztofk.video.rental.api;
+package krzysztofk.video.rental.api.rentals;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
-public class FilmToRent {
+public class RentedFilm {
 
   @NotNull
   private final int filmId;
@@ -13,7 +13,7 @@ public class FilmToRent {
   private final int rentedForDays;
 
   @JsonCreator
-  public FilmToRent(@JsonProperty("filmId") int filmId, @JsonProperty("rentedForDays") int rentedForDays) {
+  public RentedFilm(@JsonProperty("filmId") int filmId, @JsonProperty("rentedForDays") int rentedForDays) {
     this.filmId = filmId;
     this.rentedForDays = rentedForDays;
   }

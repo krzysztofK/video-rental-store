@@ -1,10 +1,10 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.core.rentals;
 
-import krzysztofk.video.rental.api.FilmSurcharge;
-import krzysztofk.video.rental.api.FilmsReturn;
-import krzysztofk.video.rental.api.PricedFilm;
-import krzysztofk.video.rental.api.PricedRental;
-import krzysztofk.video.rental.api.PricedReturn;
+import krzysztofk.video.rental.api.rentals.returns.FilmSurcharge;
+import krzysztofk.video.rental.api.rentals.returns.FilmsReturn;
+import krzysztofk.video.rental.api.rentals.PricedFilm;
+import krzysztofk.video.rental.api.rentals.PricedRental;
+import krzysztofk.video.rental.api.rentals.returns.PricedReturn;
 import org.joda.money.Money;
 
 import javax.persistence.CascadeType;
@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
-import static krzysztofk.video.rental.core.RentalPriceCalculator.zero;
 
 @Entity
 @Table(name = "RENTALS")
@@ -69,7 +68,7 @@ public class Rental {
   }
 
   private Money calculateTotalPrice(List<PricedFilm> films) {
-    return films.stream().map(PricedFilm::getPrice).reduce(zero(), Money::plus);
+    return films.stream().map(PricedFilm::getPrice).reduce(RentalPriceCalculator.zero(), Money::plus);
   }
 
   private int calculateTotalBonusPoints(List<PricedFilm> films) {
@@ -97,7 +96,7 @@ public class Rental {
   }
 
   private Money calculateTotalLateCharge(List<FilmSurcharge> surcharges) {
-    return surcharges.stream().map(FilmSurcharge::getSurcharge).reduce(zero(), Money::plus);
+    return surcharges.stream().map(FilmSurcharge::getSurcharge).reduce(RentalPriceCalculator.zero(), Money::plus);
   }
 
   public class NoFilmInRentalException extends RuntimeException {

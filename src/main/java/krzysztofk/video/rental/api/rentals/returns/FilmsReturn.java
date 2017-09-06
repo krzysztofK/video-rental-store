@@ -1,4 +1,4 @@
-package krzysztofk.video.rental.api;
+package krzysztofk.video.rental.api.rentals.returns;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

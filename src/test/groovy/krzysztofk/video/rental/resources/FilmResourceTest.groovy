@@ -1,8 +1,8 @@
 package krzysztofk.video.rental.resources
 
 import io.dropwizard.testing.junit.ResourceTestRule
-import krzysztofk.video.rental.api.Film
-import krzysztofk.video.rental.api.FilmType
+import krzysztofk.video.rental.api.films.Film
+import krzysztofk.video.rental.api.films.FilmType
 import krzysztofk.video.rental.dao.FilmDAO
 import org.junit.ClassRule
 import spock.lang.Shared
@@ -20,8 +20,8 @@ class FilmResourceTest extends Specification {
     ResourceTestRule resources = ResourceTestRule.builder().addResource(new FilmResource(filmDAO)).build()
 
     def setupSpec() {
-        filmDAO.add(_) >> { krzysztofk.video.rental.core.Film film ->
-            new krzysztofk.video.rental.core.Film(id: 1, title: film.title, type: film.type)
+        filmDAO.add(_) >> { krzysztofk.video.rental.core.films.Film film ->
+            new krzysztofk.video.rental.core.films.Film(id: 1, title: film.title, type: film.type)
         }
         filmDAO.getById(100) >> film100()
     }
@@ -54,6 +54,6 @@ class FilmResourceTest extends Specification {
     }
 
     def film100() {
-        new krzysztofk.video.rental.core.Film(id: 100, title: "film 100", type: FilmType.REGULAR_FILM)
+        new krzysztofk.video.rental.core.films.Film(id: 100, title: "film 100", type: FilmType.REGULAR_FILM)
     }
 }

@@ -1,10 +1,10 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.core.rentals;
 
-import krzysztofk.video.rental.api.FilmToRent;
-import krzysztofk.video.rental.api.FilmsReturn;
-import krzysztofk.video.rental.api.PricedRental;
-import krzysztofk.video.rental.api.PricedReturn;
-import krzysztofk.video.rental.api.RentalRequest;
+import krzysztofk.video.rental.api.rentals.RentedFilm;
+import krzysztofk.video.rental.api.rentals.returns.FilmsReturn;
+import krzysztofk.video.rental.api.rentals.PricedRental;
+import krzysztofk.video.rental.api.rentals.returns.PricedReturn;
+import krzysztofk.video.rental.api.rentals.FilmsRental;
 import krzysztofk.video.rental.dao.CustomerDAO;
 import krzysztofk.video.rental.dao.FilmDAO;
 import krzysztofk.video.rental.dao.RentalDAO;
@@ -23,19 +23,19 @@ public class RentalService {
     this.customerDAO = customerDAO;
   }
 
-  public PricedRental addRental(RentalRequest rentalRequest) {
-    PricedRental addedRental = rentalDAO.add(createRental(rentalRequest)).calculatePrice();
-    giveCustomerBonusPoints(rentalRequest.getCustomerId(), addedRental.getTotalBonusPoints());
+  public PricedRental addRental(FilmsRental filmsRental) {
+    PricedRental addedRental = rentalDAO.add(createRental(filmsRental)).calculatePrice();
+    giveCustomerBonusPoints(filmsRental.getCustomerId(), addedRental.getTotalBonusPoints());
     return addedRental;
   }
 
-  private Rental createRental(RentalRequest rentalRequest) {
+  private Rental createRental(FilmsRental filmsRental) {
     return new Rental(null,
-        rentalRequest.getRentalDate(),
-        rentalRequest.getFilms().stream().map(this::createFilmRental).collect(toList()));
+        filmsRental.getRentalDate(),
+        filmsRental.getFilms().stream().map(this::createFilmRental).collect(toList()));
   }
 
-  private FilmRental createFilmRental(FilmToRent filmToRent) {
+  private FilmRental createFilmRental(RentedFilm filmToRent) {
     return new FilmRental(filmToRent.getRentedForDays(), filmDAO.getById(filmToRent.getFilmId()));
   }
 

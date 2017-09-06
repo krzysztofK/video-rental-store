@@ -1,10 +1,10 @@
 package krzysztofk.video.rental.resources;
 
 import io.dropwizard.hibernate.UnitOfWork;
-import krzysztofk.video.rental.api.FilmsReturn;
-import krzysztofk.video.rental.api.RentalRequest;
-import krzysztofk.video.rental.api.PricedReturn;
-import krzysztofk.video.rental.core.RentalService;
+import krzysztofk.video.rental.api.rentals.returns.FilmsReturn;
+import krzysztofk.video.rental.api.rentals.FilmsRental;
+import krzysztofk.video.rental.api.rentals.returns.PricedReturn;
+import krzysztofk.video.rental.core.rentals.RentalService;
 
 import javax.validation.Valid;
 import javax.ws.rs.POST;
@@ -26,8 +26,8 @@ public class RentalResource {
 
   @POST
   @UnitOfWork
-  public Response addRental(@Valid RentalRequest rentalRequest) {
-    return Response.status(Response.Status.CREATED).entity(rentalService.addRental(rentalRequest)).build();
+  public Response addRental(@Valid FilmsRental filmsRental) {
+    return Response.status(Response.Status.CREATED).entity(rentalService.addRental(filmsRental)).build();
   }
 
   @POST

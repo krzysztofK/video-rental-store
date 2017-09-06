@@ -1,6 +1,6 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.core.films;
 
-import krzysztofk.video.rental.api.FilmType;
+import krzysztofk.video.rental.api.films.FilmType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

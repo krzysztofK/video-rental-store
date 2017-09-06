@@ -1,10 +1,10 @@
 package krzysztofk.video.rental.dao
 
 import io.dropwizard.testing.junit.DAOTestRule
-import krzysztofk.video.rental.core.Film
-import krzysztofk.video.rental.api.FilmType
-import krzysztofk.video.rental.core.FilmRental
-import krzysztofk.video.rental.core.Rental
+import krzysztofk.video.rental.core.films.Film
+import krzysztofk.video.rental.api.films.FilmType
+import krzysztofk.video.rental.core.rentals.FilmRental
+import krzysztofk.video.rental.core.rentals.Rental
 import org.junit.Rule
 import spock.lang.Specification
 

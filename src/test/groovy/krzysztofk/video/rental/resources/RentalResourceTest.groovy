@@ -1,15 +1,15 @@
 package krzysztofk.video.rental.resources
 
 import io.dropwizard.testing.junit.ResourceTestRule
-import krzysztofk.video.rental.api.FilmToRent
-import krzysztofk.video.rental.api.FilmsReturn
-import krzysztofk.video.rental.api.RentalRequest
-import krzysztofk.video.rental.core.Film
-import krzysztofk.video.rental.api.FilmSurcharge
-import krzysztofk.video.rental.api.PricedFilm
-import krzysztofk.video.rental.api.PricedRental
-import krzysztofk.video.rental.api.PricedReturn
-import krzysztofk.video.rental.core.RentalService
+import krzysztofk.video.rental.api.rentals.RentedFilm
+import krzysztofk.video.rental.api.rentals.returns.FilmsReturn
+import krzysztofk.video.rental.api.rentals.FilmsRental
+import krzysztofk.video.rental.core.films.Film
+import krzysztofk.video.rental.api.rentals.returns.FilmSurcharge
+import krzysztofk.video.rental.api.rentals.PricedFilm
+import krzysztofk.video.rental.api.rentals.PricedRental
+import krzysztofk.video.rental.api.rentals.returns.PricedReturn
+import krzysztofk.video.rental.core.rentals.RentalService
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import org.junit.ClassRule
@@ -19,9 +19,9 @@ import spock.lang.Specification
 import javax.ws.rs.client.Entity
 import java.time.ZonedDateTime
 
-import static krzysztofk.video.rental.api.FilmType.NEW_RELEASE
-import static krzysztofk.video.rental.api.FilmType.OLD_FILM
-import static krzysztofk.video.rental.api.FilmType.REGULAR_FILM
+import static krzysztofk.video.rental.api.films.FilmType.NEW_RELEASE
+import static krzysztofk.video.rental.api.films.FilmType.OLD_FILM
+import static krzysztofk.video.rental.api.films.FilmType.REGULAR_FILM
 import static krzysztofk.video.rental.api.MoneySerialization.serializationModule
 
 class RentalResourceTest extends Specification {
@@ -37,12 +37,12 @@ class RentalResourceTest extends Specification {
     ZonedDateTime rentalDate = ZonedDateTime.now()
 
     @Shared
-    def rentalToAdd = new RentalRequest(
+    def rentalToAdd = new FilmsRental(
             rentalDate,
             [
-                    new FilmToRent(2, 7),
-                    new FilmToRent(4, 3),
-                    new FilmToRent(9, 5)],
+                    new RentedFilm(2, 7),
+                    new RentedFilm(4, 3),
+                    new RentedFilm(9, 5)],
             100)
 
     @Shared

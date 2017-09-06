@@ -1,4 +1,4 @@
-package krzysztofk.video.rental.api;
+package krzysztofk.video.rental.api.rentals;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,19 +7,19 @@ import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-public class RentalRequest {
+public class FilmsRental {
 
   @NotNull
   private final ZonedDateTime rentalDate;
   @NotNull
-  private final List<FilmToRent> films;
+  private final List<RentedFilm> films;
   @NotNull
   private final int customerId;
 
   @JsonCreator
-  public RentalRequest(@JsonProperty("rentalDate") ZonedDateTime rentalDate,
-                       @JsonProperty("films") List<FilmToRent> films,
-                       @JsonProperty("customerId") int customerId) {
+  public FilmsRental(@JsonProperty("rentalDate") ZonedDateTime rentalDate,
+                     @JsonProperty("films") List<RentedFilm> films,
+                     @JsonProperty("customerId") int customerId) {
     this.rentalDate = rentalDate;
     this.films = films;
     this.customerId = customerId;
@@ -29,7 +29,7 @@ public class RentalRequest {
     return rentalDate;
   }
 
-  public List<FilmToRent> getFilms() {
+  public List<RentedFilm> getFilms() {
     return films;
   }
 

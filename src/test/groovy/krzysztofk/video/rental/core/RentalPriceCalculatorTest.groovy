@@ -4,9 +4,9 @@ import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import spock.lang.Specification
 
-import static krzysztofk.video.rental.api.FilmType.*
-import static krzysztofk.video.rental.core.RentalPriceCalculator.calculatePrice
-import static krzysztofk.video.rental.core.RentalPriceCalculator.calculateSurcharge
+import static krzysztofk.video.rental.api.films.FilmType.*
+import static krzysztofk.video.rental.core.rentals.RentalPriceCalculator.calculatePrice
+import static krzysztofk.video.rental.core.rentals.RentalPriceCalculator.calculateSurcharge
 
 class RentalPriceCalculatorTest extends Specification {
 

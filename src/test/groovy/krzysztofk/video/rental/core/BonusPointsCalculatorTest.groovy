@@ -1,6 +1,7 @@
 package krzysztofk.video.rental.core
 
-import krzysztofk.video.rental.api.FilmType
+import krzysztofk.video.rental.api.films.FilmType
+import krzysztofk.video.rental.core.rentals.BonusPointsCalculator
 import spock.lang.Specification
 
 class BonusPointsCalculatorTest extends Specification {

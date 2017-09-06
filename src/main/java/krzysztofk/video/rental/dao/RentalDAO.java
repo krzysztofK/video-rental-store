@@ -1,7 +1,7 @@
 package krzysztofk.video.rental.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
-import krzysztofk.video.rental.core.Rental;
+import krzysztofk.video.rental.core.rentals.Rental;
 import org.hibernate.SessionFactory;
 
 public class RentalDAO extends AbstractDAO<Rental> {

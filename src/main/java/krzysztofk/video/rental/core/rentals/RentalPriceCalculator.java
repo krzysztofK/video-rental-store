@@ -1,6 +1,6 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.core.rentals;
 
-import krzysztofk.video.rental.api.FilmType;
+import krzysztofk.video.rental.api.films.FilmType;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 

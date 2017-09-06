@@ -1,7 +1,10 @@
 package krzysztofk.video.rental.core
 
-import krzysztofk.video.rental.api.FilmType
-import krzysztofk.video.rental.api.FilmsReturn
+import krzysztofk.video.rental.api.films.FilmType
+import krzysztofk.video.rental.api.rentals.returns.FilmsReturn
+import krzysztofk.video.rental.core.films.Film
+import krzysztofk.video.rental.core.rentals.FilmRental
+import krzysztofk.video.rental.core.rentals.Rental
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money
 import spock.lang.Specification

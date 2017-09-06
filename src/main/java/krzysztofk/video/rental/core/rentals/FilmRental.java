@@ -1,7 +1,8 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.core.rentals;
 
-import krzysztofk.video.rental.api.FilmSurcharge;
-import krzysztofk.video.rental.api.PricedFilm;
+import krzysztofk.video.rental.api.rentals.returns.FilmSurcharge;
+import krzysztofk.video.rental.api.rentals.PricedFilm;
+import krzysztofk.video.rental.core.films.Film;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import static krzysztofk.video.rental.core.BonusPointsCalculator.calculateBonusPoints;
+import static krzysztofk.video.rental.core.rentals.BonusPointsCalculator.calculateBonusPoints;
 
 @Entity
 @Table(name = "FILM_RENTALS")
