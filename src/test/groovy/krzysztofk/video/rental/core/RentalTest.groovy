@@ -56,6 +56,19 @@ class RentalTest extends Specification {
         pricedReturn.totalLateCharge == price(30)
     }
 
+    def "should throw exception if return contains film not present in rental"() {
+        given:
+        def film = filmRental(1, FilmType.OLD_FILM, 5)
+        def rental = rental(film)
+        def returnDate = rentalDate.plusHours(125) // above 5 days
+
+        when:
+        rental.calculateReturnPrice(new FilmsReturn(returnDate, [1, 2]))
+
+        then:
+        thrown Rental.NoFilmInRentalException
+    }
+
     private static def filmRental(int filmId, FilmType type, int rentedForDays) {
         new FilmRental(rentedForDays, new Film(filmId, "someTitle", type))
     }
