@@ -1,6 +1,10 @@
 package krzysztofk.video.rental.core;
 
+import krzysztofk.video.rental.api.FilmSurcharge;
 import krzysztofk.video.rental.api.FilmsReturn;
+import krzysztofk.video.rental.api.PricedFilm;
+import krzysztofk.video.rental.api.PricedRental;
+import krzysztofk.video.rental.api.PricedReturn;
 import org.joda.money.Money;
 
 import javax.persistence.CascadeType;

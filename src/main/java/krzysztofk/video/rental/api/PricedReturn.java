@@ -1,7 +1,8 @@
-package krzysztofk.video.rental.core;
+package krzysztofk.video.rental.api;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import krzysztofk.video.rental.api.FilmSurcharge;
 import org.joda.money.Money;
 
 import java.util.List;

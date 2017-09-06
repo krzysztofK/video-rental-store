@@ -5,10 +5,10 @@ import krzysztofk.video.rental.api.FilmToRent
 import krzysztofk.video.rental.api.FilmsReturn
 import krzysztofk.video.rental.api.RentalRequest
 import krzysztofk.video.rental.core.Film
-import krzysztofk.video.rental.core.FilmSurcharge
-import krzysztofk.video.rental.core.PricedFilm
-import krzysztofk.video.rental.core.PricedRental
-import krzysztofk.video.rental.core.PricedReturn
+import krzysztofk.video.rental.api.FilmSurcharge
+import krzysztofk.video.rental.api.PricedFilm
+import krzysztofk.video.rental.api.PricedRental
+import krzysztofk.video.rental.api.PricedReturn
 import krzysztofk.video.rental.core.RentalService
 import org.joda.money.CurrencyUnit
 import org.joda.money.Money

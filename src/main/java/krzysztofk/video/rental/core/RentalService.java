@@ -2,6 +2,8 @@ package krzysztofk.video.rental.core;
 
 import krzysztofk.video.rental.api.FilmToRent;
 import krzysztofk.video.rental.api.FilmsReturn;
+import krzysztofk.video.rental.api.PricedRental;
+import krzysztofk.video.rental.api.PricedReturn;
 import krzysztofk.video.rental.api.RentalRequest;
 import krzysztofk.video.rental.dao.CustomerDAO;
 import krzysztofk.video.rental.dao.FilmDAO;

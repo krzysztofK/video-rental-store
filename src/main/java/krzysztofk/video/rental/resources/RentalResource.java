@@ -3,7 +3,7 @@ package krzysztofk.video.rental.resources;
 import io.dropwizard.hibernate.UnitOfWork;
 import krzysztofk.video.rental.api.FilmsReturn;
 import krzysztofk.video.rental.api.RentalRequest;
-import krzysztofk.video.rental.core.PricedReturn;
+import krzysztofk.video.rental.api.PricedReturn;
 import krzysztofk.video.rental.core.RentalService;
 
 import javax.validation.Valid;

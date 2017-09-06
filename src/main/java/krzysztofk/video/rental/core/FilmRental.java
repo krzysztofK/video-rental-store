@@ -1,5 +1,8 @@
 package krzysztofk.video.rental.core;
 
+import krzysztofk.video.rental.api.FilmSurcharge;
+import krzysztofk.video.rental.api.PricedFilm;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
